@@ -53,7 +53,7 @@ export default function Products() {
             <td>#</td> 
             <td>Messages</td>
             {/* <img src={product.images[0]} className="w-20 mb-2 border border-black" /> */}
-            <td></td>
+            <td>Date & Hour</td>
           </tr>
         </thead>
         <tbody>
@@ -70,6 +70,9 @@ export default function Products() {
             <tr key={product._id}>
               <td>{index + 1}</td> 
               <td>{product.name}</td>
+              <td>{product.createdAt}</td>
+
+              
              
               <td>
                 <Link className="btn-default" href={'/massages/edit/' + product._id}>
