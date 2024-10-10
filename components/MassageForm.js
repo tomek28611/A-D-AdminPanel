@@ -7,22 +7,26 @@ import Spinner from "@/components/Spinner";
 
 
 export default function MassageForm({
-    _id,
+    name: existingName,
+    email: existingEmail,
+    phone: existingPhone,
+    titleNr: existingTitleNr,
+    vin: existingVin,
+    message: existingMessage,
     title: existingTitle,
-    description: exitstingDescription,
-    price: existingPrice,
-    images: existingImages,
+
 
 }) {
 
     const [title, setTitle] = useState(existingTitle || '');
-    const [description, setDescription] = useState(exitstingDescription || '');
-    const [price, setPrice] = useState(existingPrice || '');
-    const [images, setImages] = useState(existingImages || []);
-    const [isUploading, setIsUploading] = useState(false);
+    const [name, setName] = useState(existingName || '');
+    const [email, setEmail] = useState(existingEmail || '');
+    const [phone, setPhone] = useState(existingPhone || '');
 
-
-
+    const [titleNr, setTitleNr] = useState(existingTitleNr || '');
+    const [vin, setVin] = useState(existingVin || '');
+    const [message, setMessage] = useState(existingMessage || '');
+   
     const [goToMassages, setGoToMassages] = useState(false);
 
     const router = useRouter();
@@ -45,65 +49,36 @@ export default function MassageForm({
         router.push('/massages');
     }
 
-    async function uploadImages(ev) {
-        console.log(ev);
-        const files = ev.target?.files;
-        if (files?.length > 0) {
-            setIsUploading(true);
-            const data = new FormData();
-            for (const file of files) {
-                data.append('file', file);
-            }
-            const res = await axios.post('/api/upload', data);
-            setImages(oldImages => {
-                return [...oldImages, ...res.data.links];
-            });
-            setIsUploading(false);
-        }
-    }
-    function updateImagesOrder(images) {
-        setImages(images);
-    }
 
 
     return (
 
         <form onSubmit={saveMassage}>
+            <label>Name</label>
+            <input type="text" placeholder="New Massage" value={name} onChange={ev => setName(ev.target.value)} />
+            <label>email</label>
 
-            <input type="text" placeholder="New Massage" value={title} onChange={ev => setTitle(ev.target.value)} />
+            <input type="text" placeholder="New Massage" value={email} onChange={ev => setName(ev.target.value)} />
+            <label>Phone</label>
 
-            <label>
-                Photos
-            </label>
-            <div className="mb-2 flex flex-wrap gap-1">
-                <ReactSortable
-                    list={images}
-                    className="flex flex-wrap gap-1"
-                    setList={updateImagesOrder}>
-                    {/* {!!images?.length && images.map(link => (
-                        <div key={link} className="h-24 bg-white p-4 shadow-sm rounded-sm border border-gray-200">
-                            <img src={link} alt="" className="rounded-lg" />
-                        </div>
-                    ))} */}
-                </ReactSortable>
-                {isUploading && (
-                    <div className="h-24 flex items-center">
-                        <Spinner />
-                    </div>
-                )}
-                <label className="w-24 h-24 cursor-pointer text-center flex flex-col items-center justify-center text-sm gap-1 text-primary rounded-sm bg-white shadow-sm border border-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
-                    </svg>
-                    <div>
-                        Add image
-                    </div>
-                    <input type="file" onChange={uploadImages} className="hidden" />
-                </label>
-            </div>
+            <input type="text" placeholder="New Massage" value={phone} onChange={ev => setName(ev.target.value)} />
+            <label>Name part</label>
 
-            <textarea type="text" placeholder="desc" value={description} onChange={ev => setDescription(ev.target.value)} />
-            <input type="number" placeholder="price" value={price} onChange={ev => setPrice(ev.target.value)} />
+            <input type="text" placeholder="New Massage" value={title} onChange={ev => setName(ev.target.value)} />
+            <label>Nr part</label>
+
+            <input type="text" placeholder="New Massage" value={titleNr} onChange={ev => setName(ev.target.value)} />
+            <label>VIN</label>
+
+            <input type="text" placeholder="New Massage" value={vin} onChange={ev => setName(ev.target.value)} />
+            <label>Message</label>
+
+            <input type="text" placeholder="New Massage" value={message} onChange={ev => setName(ev.target.value)} />
+           
+
+
+          
+
             <button type="submit" className="btn-primary">Save</button>
         </form>
 

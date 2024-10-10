@@ -50,7 +50,7 @@ export default function Products() {
       <table className="basic mt-2">
         <thead>
           <tr>
-            <td>#</td> {/* Column for order number */}
+            <td>#</td> 
             <td>Product name</td>
             {/* <img src={product.images[0]} className="w-20 mb-2 border border-black" /> */}
             <td></td>
@@ -68,7 +68,7 @@ export default function Products() {
           )}
           {filteredProducts.map((product, index) => (
             <tr key={product._id}>
-              <td>{index + 1}</td> {/* Display the order number */}
+              <td>{index + 1}</td> 
               <td>{product.title}</td>
               <img src={product.images[0]} className="w-20 mb-2 border border-black" />
               <td>

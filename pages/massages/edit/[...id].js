@@ -15,7 +15,7 @@ export default function EditMassagePage() {
       return;
     }
     setIsLoading(true);
-    axios.get('/api/massages?id='+id).then(response => {
+    axios.get('/api/support?id='+id).then(response => {
       setMassageInfo(response.data);
       setIsLoading(false);
     });

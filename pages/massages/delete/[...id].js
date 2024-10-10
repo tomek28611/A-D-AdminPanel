@@ -11,7 +11,7 @@ export default function DeleteMassagePage() {
     if (!id) {
       return;
     }
-    axios.get('/api/massages?id='+id).then(response => {
+    axios.get('/api/support?id='+id).then(response => {
       setMassageInfo(response.data);
     });
   }, [id]);
@@ -19,7 +19,7 @@ export default function DeleteMassagePage() {
     router.push('/massages');
   }
   async function deleteMassage() {
-    await axios.delete('/api/massages?id='+id);
+    await axios.delete('/api/support?id='+id);
     goBack();
   }
   return (
