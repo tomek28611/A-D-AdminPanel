@@ -44,6 +44,18 @@ export default function Products() {
     }
   };
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('pl-PL', { 
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    }) + ' ' + date.toLocaleTimeString('pl-PL', {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  };
+
   return (
     <Layout>
 
@@ -70,7 +82,7 @@ export default function Products() {
             <tr key={product._id}>
               <td>{index + 1}</td> 
               <td>{product.name}</td>
-              <td>{product.createdAt}</td>
+              <p><strong> {formatDate(product.createdAt)} </strong> </p>
 
               
              
