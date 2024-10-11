@@ -25,14 +25,17 @@ export default function OrdersPage() {
     fetchOrders();
   }, []);
 
+
+
   const deleteOrder = async (id) => {
+    console.log(`Deleting order with ID: ${id}`); 
+  
     if (confirm('Are you sure you want to delete this order?')) {
       try {
-        await fetch(`/api/orders/${id}`, { 
-          method: 'DELETE',
-        });
-        setOrders(orders.filter(order => order._id !== id));  
+        await axios.delete(`/api/order/delete/${id}`); 
+        setOrders(orders.filter(order => order._id !== id));
       } catch (err) {
+        console.error('Error deleting order:', err); 
         setError('Error deleting order');
       }
     }
