@@ -25,22 +25,22 @@ export default function OrdersPage() {
     fetchOrders();
   }, []);
 
-
-
   const deleteOrder = async (id) => {
-    console.log(`Deleting order with ID: ${id}`); 
-  
     if (confirm('Are you sure you want to delete this order?')) {
       try {
-        await axios.delete(`/api/order/delete/${id}`); 
-        setOrders(orders.filter(order => order._id !== id));
+        await fetch('/api/orders', {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ id }),
+        });
+        setOrders(orders.filter((order) => order._id !== id)); 
       } catch (err) {
-        console.error('Error deleting order:', err); 
         setError('Error deleting order');
       }
     }
   };
-  
 
   const handleEdit = (order) => {
     setEditingOrder(order);
@@ -66,7 +66,7 @@ export default function OrdersPage() {
         body: JSON.stringify(updatedOrder),
       });
       setOrders(orders.map(order => (order._id === editingOrder._id ? { ...order, ...updatedOrder } : order)));
-      setEditingOrder(null); // Zresetuj edytowane zamówienie
+      setEditingOrder(null); 
     } catch (err) {
       setError('Error updating order');
     }

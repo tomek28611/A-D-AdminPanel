@@ -4,8 +4,8 @@ import { Order } from "@/models/Order";
 export default async function handler(req, res) {
   await mongooseConnect();
 
-  const { id } = req.query; 
-  console.log(id); 
+  const { id } = req.query;
+
   if (req.method === 'GET') {
     try {
       const orders = await Order.find().sort({ createdAt: -1 });
@@ -14,16 +14,14 @@ export default async function handler(req, res) {
       res.status(500).json({ message: 'Error fetching orders', error: error.message });
     }
   } else if (req.method === 'DELETE') {
-  
+    const { id } = req.body;
+
     if (!id) {
       return res.status(400).json({ message: 'Missing ID' });
     }
 
     try {
-      const deletedOrder = await Order.findByIdAndDelete(id);
-      if (!deletedOrder) {
-        return res.status(404).json({ message: 'Order not found' });
-      }
+      await Order.findByIdAndDelete(id); 
       res.status(200).json({ message: 'Order deleted successfully' });
     } catch (error) {
       res.status(500).json({ message: 'Error deleting order', error: error.message });
